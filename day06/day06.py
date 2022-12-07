@@ -1,27 +1,25 @@
 INPUT_FILE = "day06Input.txt"
 
-def readFile(filePath):
-	with open(filePath) as file:
-		return file.readlines()
 
-def findAllMarkers():
-	lines = readFile(INPUT_FILE)
-	
-	for line in lines:
-		print(findMarkerIndex(line, 4))
-		print(findMarkerIndex(line, 14))
-		
+def readFile(filePath):
+    with open(filePath) as file:
+        return file.readlines()
+
+
+def findStartOfPacketMarkers():
+    lines = readFile(INPUT_FILE)
+    partA = findMarkerIndex(lines[0], 4)
+    partB = findMarkerIndex(lines[0], 14)
+    return partA, partB
+
+
 def findMarkerIndex(line, packetSize):
-	characters = list(line.replace("\n", ""))
-	index = 0
-	while(index < len(characters)):
-		currentSet = characters[index:index + packetSize]
-		if(len(set(currentSet)) == len(currentSet)):
-			return index + packetSize
-		index += 1
-	
-	return -1
-	
-	
-findAllMarkers()
-	
+    characters = list(line.replace("\n", ""))
+    index = 0
+    while(index < len(characters)):
+        currentSet = characters[index:index + packetSize]
+        if(len(set(currentSet)) == packetSize):
+            return index + packetSize
+        index += 1
+
+    return -1
